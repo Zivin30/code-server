@@ -174,6 +174,127 @@ Function tim($tmr){
         }if($res < 1){break;}
     endwhile;  
 }
+Function _cIcon($token,$theme){
+    $ts= round(microtime(true) * 1000);
+    $data = ["payload" => base64_encode(json_encode([
+    "i"  => "1",
+    "a"  => "1",
+    "t"  => "dark",
+    "ts" => $ts]))];
+	$r = json_decode(base64_decode(post(web.'/system/libs/captcha/request.php', $data)));
+	print rr;
+	print p."   Bypass ".p."[".w3."1".p."]";
+	sleep(3);
+	$header[] = "accept: */*";
+	$header[] = 'sec-ch-ua: "Chromium";v="107", "Not=A?Brand";v="24"';
+	$header[] = "origin: ".web;
+	$header[] = "sec-ch-ua-mobile: ?1";
+	$header[] = 'sec-ch-ua-platform:"Android"';
+	$header[] = "sec-fetch-site: same-origin";
+	$header[] = "sec-fetch-mode: cors";
+    $header[] = "sec-fetch-dest: image";
+    $header[] = "accept-language: id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7";
+    $header[] = "dnt: 1";
+    $header[] = "referer: ".web."/";
+    $header[] = "accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8";
+    $r=gas(web.'/system/libs/captcha/request.php?payload='.base64_encode('{"i":1,"ts":'.$ts.'}'), 0,array_merge($header,h()));
+    print rr;
+	print p."   Bypass ".p."[".w3."2".p."]";
+	sleep(3);
+	print rr;
+    $x = x();
+    $y = y();
+    $w = w();
+	$data = ['payload' => base64_encode(json_encode([
+	"i"  => "1",
+	"x"  => $x,
+	"y"  => $y,
+	"w"  => $w,
+	"a"  => "2",
+	"ts" => $ts]))];
+	$r = gas(web.'/system/libs/captcha/request.php', $data, h())[0];
+    $data = "a=getFaucet&token=".$token."&captcha=3&challenge=false&response=false&ic-hf-id=1&ic-hf-se=".$x.",".$y.",".$w."&ic-hf-hp=";
+    $r= json_decode(post(web."/system/ajax.php", $data) ,1);
+    
+    if($r['status'] == 200){
+        bps_cap();
+        suc($r["reward"], $r["number"]);
+    }else{
+        echo " ".w2.strip_tags($r['message']);
+        sleep(3);
+        print rr;
+    }
+}
+Function _cIconX($token,$theme){
+    $header   = h();
+	$header[] = "origin: ".web."/";
+	$header[] = "x-iconcaptcha-token: ".$token;
+	$header[] = "x-requested-with: XMLHttpRequest";
+    $timestamp = round(microtime(true) * 1000);
+    $initTimestamp = $timestamp - 2000;
+    $widgetID = widgetId();
+    $x = x();
+    $y = y();
+    $data = ["payload"      => base64_encode(json_encode([
+            "widgetId"	    => $widgetID,
+            "action" 	    => "LOAD",
+            "theme" 	    => "$theme",
+            "token" 	    => $token,
+            "timestamp"	    => $timestamp,
+            "initTimestamp"	=> $initTimestamp
+        ]))
+    ];
+    echo rr;
+    echo p."   Bypass ".p."[".w3.".  ".p."]";
+    sleep(2);
+    $r = json_decode(base64_decode(postt(web."/icaptcha/req",$header,$data)),1);
+    $base64Image = $r["challenge"];
+    $challengeId = $r["identifier"];
+    $data = ["payload"      => base64_encode(json_encode([
+            "widgetId"		=> $widgetID,
+            "challengeId"	=> $challengeId,
+            "action"		=> "SELECTION",
+            "x"				=> $x,
+            "y"				=> $y,
+            "width"			=> 320,
+            "token" 		=> $token,
+            "timestamp"		=> $timestamp,
+            "initTimestamp"	=> $initTimestamp
+        ]))
+    ];
+    echo rr;
+    echo p."   Bypass ".p."[".w3.".. ".p."]";
+    $r = json_decode(base64_decode(postt(web."/icaptcha/req",$header, $data)),1);
+    sleep(1);
+    echo rr;
+    if(!$r['completed'])return;
+    echo p."   Bypass ".p."[".w3."...".p."]";
+    sleep(2);
+    $data = [];
+    $data['captcha'] = "icaptcha";
+    $data['_iconcaptcha-token']=$token;
+    $data['ic-rq']=1;
+    $data['ic-wid'] = $widgetID;
+    $data['ic-cid'] = $challengeId;
+    $data['ic-hp'] = '';
+    return $data;
+}
+Function widgetId() {
+	$uuid = '';
+	for ($n = 0; $n < 32; $n++) {
+		if ($n == 8 || $n == 12 || $n == 16 || $n == 20) {
+				$uuid .= '-';
+		}
+		$e = mt_rand(0, 15);
+		if ($n == 12) {
+			$e = 4;
+		} elseif ($n == 16) {
+			$e = ($e & 0x3) | 0x8;
+		}
+		$uuid .= dechex($e);
+	}
+	return $uuid;
+}
 Function RecaptchaV3($anchor){
     while(true){
         $r = curl($anchor,array());
