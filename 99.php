@@ -13,7 +13,7 @@ Menu(2,"Multibot");
 Menu(3,"Tertuyul");
 $pilih = readline(" ".Pesan(0,"Input ".p).panah.p);
 if($pilih == 1){
-    $api_url="http://api.sctg.xyz";
+    $api_url="http://sctg.xyz";
     Print w3." Xevil : ".p.n;
     Save("Apikey");
 }elseif($pilih == 2){
