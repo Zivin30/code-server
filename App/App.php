@@ -1,9 +1,9 @@
 <?php
 /* 
  ==================================
- Author   : Zerobot |--
- Version  : 1.0.6 |--
- Telegram : t.me/official_zerobot |--
+ Author   : Rdp |--
+ Version  : 1.0.0 |--
+ Telegram : t.me/rdp |--
  ==================================
 */
 define("a","\033[1;30m");
