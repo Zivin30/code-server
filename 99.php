@@ -21,7 +21,7 @@ if($pilih == 1){
     Print w3." Multibot : ".p.n;
     Save("Apikey");  
 }elseif($pilih == 3){
-    $api_url="https://tertuyul.my.id/apikey/";
+    $api_url="https://api.tertuyul.my.id";
     Print w3." Tertuyul : ".p.n;
     Save("Apikey");  
 }else{print k." Bad Number".n;sleep(3);goto apikey;}
