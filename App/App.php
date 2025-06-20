@@ -164,7 +164,7 @@ Function init(){
 Function tim($tmr){
     date_default_timezone_set("UTC");
     $panah = array(w."❯".p."❯❯❯❯",p."❯".w."❯".p."❯❯❯",p."❯❯".w."❯".p."❯❯",p."❯❯❯".w."❯".p."❯",p."❯❯❯❯".w."❯");
-    $rand = rand(1,5);
+    $rand = rand(0,2);
     $timr = (time()+$tmr)+$rand;
     while(true):
         foreach($panah as $pan){
@@ -347,8 +347,8 @@ Function captchaMul($source,$api_url,$apikey, $sitekey, $pageurl,$delay){
         }
 }
 Function captchaTer($source,$api_url,$apikey, $sitekey, $pageurl,$delay){
-    if(preg_match("/recaptchav2/" ,$source)){$r = json_decode(file_get_contents($api_url."/in.php?key=".$apikey."&method=recaptchav2&googlekey=".$sitekey."&pageurl=".$pageurl."&json=1"),1);}
-    if(preg_match("/recaptchav3/" ,$source)){$r = json_decode(file_get_contents($api_url."/in.php?key=".$apikey."&method=recaptchav3&googlekey=".$sitekey."&pageurl=".$pageurl."&json=1"),1);}
+    if(preg_match("/recaptchav2/" ,$source)){$r = json_decode(file_get_contents($api_url."/in.php?key=".$apikey."&method=userrecaptcha&googlekey=".$sitekey."&pageurl=".$pageurl."&json=1"),1);}
+    if(preg_match("/recaptchav3/" ,$source)){$r = json_decode(file_get_contents($api_url."/in.php?key=".$apikey."&method=userrecaptcha&googlekey=".$sitekey."&pageurl=".$pageurl."&json=1"),1);}
     if(preg_match("/turnstile/",$source)){$r = json_decode(file_get_contents($api_url."/in.php?key=".$apikey."&method=turnstile&sitekey=".$sitekey."&pageurl=".$pageurl."&json=1"),1);}
     $status = $r["status"];
         if($status == 0){ApiError;return 0;}
