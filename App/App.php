@@ -347,15 +347,15 @@ Function captchaMul($source,$api_url,$apikey, $sitekey, $pageurl,$delay){
         }
 }
 Function captchaTer($source,$api_url,$apikey, $sitekey, $pageurl,$delay){
-    if(preg_match("/recaptchav2/" ,$source)){$r = json_decode(file_get_contents($api_url."/apikey/".$apikey."&method=recaptchav2&googlekey=".$sitekey."&pageurl=".$pageurl."&json=1"),1);}
-    if(preg_match("/recaptchav3/" ,$source)){$r = json_decode(file_get_contents($api_url."/apikey/".$apikey."&method=recaptchav3&googlekey=".$sitekey."&pageurl=".$pageurl."&json=1"),1);}
-    if(preg_match("/turnstile/",$source)){$r = json_decode(file_get_contents($api_url."/apikey/".$apikey."&method=turnstile&sitekey=".$sitekey."&pageurl=".$pageurl."&json=1"),1);}
+    if(preg_match("/recaptchav2/" ,$source)){$r = json_decode(file_get_contents($api_url."/in.php?key=".$apikey."&method=recaptchav2&googlekey=".$sitekey."&pageurl=".$pageurl."&json=1"),1);}
+    if(preg_match("/recaptchav3/" ,$source)){$r = json_decode(file_get_contents($api_url."/in.php?key=".$apikey."&method=recaptchav3&googlekey=".$sitekey."&pageurl=".$pageurl."&json=1"),1);}
+    if(preg_match("/turnstile/",$source)){$r = json_decode(file_get_contents($api_url."/in.php?key=".$apikey."&method=turnstile&sitekey=".$sitekey."&pageurl=".$pageurl."&json=1"),1);}
     $status = $r["status"];
         if($status == 0){ApiError;return 0;}
         $id = $r["request"];
         while(true){
             load();
-            $r = json_decode(file_get_contents($api_url."/apikey/".$apikey."&action=get&id=".$id."&json=1"),1);
+            $r = json_decode(file_get_contents($api_url."/res.php?key=".$apikey."&action=get&id=".$id."&json=1"),1);
             $status = $r["status"];
             if($r["request"] == "CAPCHA_NOT_READY"){print rr;load();sleep($delay);print rr;continue;}
             if($status == 1){print rr;print bps_cap();return $r["request"];}
