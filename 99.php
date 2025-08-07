@@ -11,6 +11,7 @@ Print " ".Pesan(0, "Menu apikey").n;
 Menu(1,"Xevil");
 Menu(2,"Multibot");
 Menu(3,"Tertuyul");
+Menu(4,"Nopecha");
 $pilih = readline(" ".Pesan(0,"Input ".p).panah.p);
 if($pilih == 1){
     $api_url="http://sctg.xyz";
@@ -23,6 +24,10 @@ if($pilih == 1){
 }elseif($pilih == 3){
     $api_url="https://api.tertuyul.my.id";
     Print w3." Tertuyul : ".p.n;
+    Save("Apikey");  
+}elseif($pilih == 4){
+    $api_url="https://api.nopecha.com";
+    Print w3." Nopecha : ".p.n;
     Save("Apikey");  
 }else{print k." Bad Number".n;sleep(3);goto apikey;}
 if(!file_exists(Data."Apikey")){
