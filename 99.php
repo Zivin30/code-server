@@ -1,6 +1,6 @@
 <?php
 define('host',['99MakeMoneyonline','99makemoneyonline.com','']);
-define('version','1.0.2');
+define('version','1.0.4');
 define('cok','cookie.'.host[0]);
 define('uag','user_agent');
 define('web','https://'.host[1]);
